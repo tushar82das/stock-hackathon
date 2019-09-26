@@ -1,0 +1,77 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Stock ID#</th>
+            <th>Stock Name</th>
+            <th>Price</th>
+            <th>Buy</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let stock of stocks">
+            <td>{{stock.stockId}}</td>
+            <td>{{stock.stockName}}</td>
+            <td>{{stock.unitPrice | currency:'INR'}}</td>
+            <td><button type="button" class="btn btn-outline-info" style="width: 80px;"
+                    (click)="showDialog(stock.stockId,stock.stockName,stock.unitPrice)">Buy</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<p-dialog [(visible)]="displayBuyDialog" name="displayBuyDialog" [style]="{width: '600px'}">
+    <p-header>
+        {{selected_stockName}}
+    </p-header>
+    <div class="alert alert-success" *ngIf="isSuccessGetLatestPrice">
+        <strong>Update!</strong> Stock price Updated !!
+    </div>
+    <div *ngIf="isSuccessOrder" class="alert alert-success" style="height: 200px; text-align: center;">
+        <h3>Success!</h3><br><br>
+        <div>You have successful placed your order for stock: {{selected_stockName}}</div>
+    </div>
+    <table *ngIf="!isSuccessOrder" class="table">
+        <tbody>
+            <tr>
+                <td><strong>Stock Name</strong></td>
+                <td><strong>Quantity</strong></td>
+                <td><strong>Price</strong></td>
+                <td><strong>Total Price</strong></td>
+            </tr>
+            <tr>
+                <td>{{selected_stockName}}</td>
+                <td>
+                    <div class="form-group">
+                        <input type="number" class="form-control" min="1" [(ngModel)]="selected_quantity"
+                            name="selected_quantity" style="width: 60px;" (change)="changeUnitPrice($event)">
+                    </div>
+                </td>
+                <td>{{selected_stockPrice | currency:'INR'}}</td>
+                <td>{{selected_total | currency:'INR'}}</td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <div class="alert alert-danger">
+                        * Additional 5% of Brokerage charge will be add to the Total Price.
+                    </div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <p-footer>
+        <div *ngIf="!isSuccessOrder">
+            <button type="button" class="btn btn-secondary" (click)="closeDialog()">Cancel</button>&nbsp;
+            <button *ngIf="!isClickedGetLatestPrice" type="button" class="btn btn-primary" (click)="getLatestPrice()"
+                [disabled]="isDisableGetLatest">Get
+                Latest Price</button>&nbsp;
+            <button *ngIf="isClickedGetLatestPrice" type="button" class="btn btn-primary" (click)="confirmBuy()">Confirm
+                &
+                Buy</button>
+
+        </div>
+        <div *ngIf="isSuccessOrder">
+            <button type="button" class="btn btn-secondary" (click)="closeDialog()">Close</button>
+        </div>
+    </p-footer>
+</p-dialog>

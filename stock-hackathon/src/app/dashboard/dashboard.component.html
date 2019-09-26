@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-sm-1">
+        &nbsp;
+    </div>
+    <div class="col-sm-10">
+
+        <div style="text-align: center">
+            <br>
+            <h4>Welcome to Dashboard</h4>
+        </div>
+        <p-tabView>
+            <p-tabPanel header="ALl Stocks">
+                <app-all-stock></app-all-stock>
+            </p-tabPanel>
+            <p-tabPanel header="Purchased Stocks">
+                <app-purchased-stock></app-purchased-stock>
+            </p-tabPanel>
+        </p-tabView>
+
+    </div>
+    <div class="col-sm-1">
+        <br>
+        <button type="button" class="btn btn-outline-secondary" (click)="userLogout()">Logout</button>
+    </div>
+</div>

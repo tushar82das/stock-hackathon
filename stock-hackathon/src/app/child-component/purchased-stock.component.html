@@ -1,0 +1,26 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Order Id</th>
+            <th>User Id</th>
+            <th>Order Date</th>
+            <th>Stock Id</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th>Total Price</th>
+            <th>Order Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let order of orders">
+            <td>{{order.orderId}}</td>
+            <td>{{order.userId}}</td>
+            <td>{{order.orderDate}}</td>
+            <td>{{order.stockId}}</td>
+            <td>{{order.unitPrice | currency:'INR'}}</td>
+            <td>{{order.quantity}}</td>
+            <td>{{order.totalPrice | currency:'INR'}}</td>
+            <td>{{order.orderStatus}}</td>
+        </tr>
+    </tbody>
+</table>
